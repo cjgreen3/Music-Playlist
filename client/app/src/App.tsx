@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 interface Song {
   id: number; // or string, depending on your API
-  title: string;
+  name: string;
 }
 function App() {
   const [songs, setSongs] = useState<Song[]>([]);
   const [songName, setSongName] = useState("");
+  const [artistsName, setArtistsName] = useState("");
   const [newSongName, setNewSongName] = useState("");
 
   useEffect(() => {
@@ -24,7 +25,8 @@ function App() {
   };
   const addSong = async () => {
     const songData = {
-      title: songName,
+      name: songName,
+      artist: artistsName,
     };
     try {
       const response = await fetch("http://127.0.0.1:8000/api/songs/create/", {
@@ -42,7 +44,7 @@ function App() {
   };
   const updateSongName = async (pk: number) => {
     const songData = {
-      title: newSongName,
+      name: newSongName,
     };
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/songs/${pk}/`, {
@@ -104,6 +106,11 @@ function App() {
           placeholder="Enter your Song Name"
           onChange={(e) => setSongName(e.target.value)}
         />
+        <input
+          type="text"
+          placeholder="Enter the Artist Name"
+          onChange={(e) => setArtistsName(e.target.value)}
+        />
         <button onClick={addSong}> Add Song </button>
       </div>
 
@@ -113,15 +120,14 @@ function App() {
             key={song.id}
             style={{ display: "flex", alignItems: "center", gap: "10px" }}
           >
-            <span>{song.title}</span>
+            <span>{song.name}</span>
+            <span>{song.artist}</span>
             <input
               type="text"
-              placeholder="Edit Title"
+              placeholder="Edit Name"
               onChange={(e) => setNewSongName(e.target.value)}
             />
-            <button onClick={() => updateSongName(song.id)}>
-              Change Title
-            </button>
+            <button onClick={() => updateSongName(song.id)}>Change Name</button>
             <button onClick={() => deleteSong(song.id)}>Delete</button>
           </li>
         ))}
