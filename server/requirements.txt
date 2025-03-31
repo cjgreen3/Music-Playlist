@@ -1,0 +1,20 @@
+# Core Django dependencies
+Django==4.2.18
+djangorestframework==3.15.2
+django-cors-headers==4.7.0
+django-extensions==3.1.5
+django-model-utils==4.2.0
+
+# Testing dependencies
+pytest==7.1.1
+pytest-django==4.5.2
+pytest-cov==3.0.0
+
+# Linting and code quality
+flake8==4.0.1
+black==22.3.0
+isort==5.10.1
+
+# Other utilities
+bcrypt
+requests
